@@ -31,7 +31,7 @@ const Navigation = () => {
   const theme = useTheme();
   const useStyle = makeStyles({
     navItem: {
-      color: "#fff",
+      color: "white",
       textDecoration: "none",
     },
     navIcon: {
@@ -54,7 +54,7 @@ const Navigation = () => {
     },
     mobileNavItem: {
       textDecoration: "none",
-      color: "maroon",
+      color: "#540D15",
       fontSize: "20px",
       display: "flex",
     },

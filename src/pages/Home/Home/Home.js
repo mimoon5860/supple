@@ -26,6 +26,16 @@ const Home = () => {
       .finally(() => {
         setReviewLoading(false);
       });
+
+    const hash = window.location.hash;
+
+    if (hash) {
+      // Scroll to the element with the matching ID
+      const element = document.querySelector(hash);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   }, []);
 
   return (
@@ -38,7 +48,7 @@ const Home = () => {
         ) : (
           <Box>
             <HomeLipsticks></HomeLipsticks>
-            <Container sx={{ my: 8 }}>
+            <Container id="reviews" sx={{ my: 8 }}>
               <h1 style={{ textAlign: "center", color: "goldenrod" }}>
                 What's our client says?
               </h1>

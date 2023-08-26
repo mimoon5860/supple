@@ -7,7 +7,6 @@ import {
   Divider,
   Grid,
   Paper,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -15,69 +14,18 @@ import Navigation from "../shared/Navigation/Navigation";
 import useAuth from "../hooks/useAuth";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import Footer from "../shared/Footer/Footer";
-import { useState } from "react";
-import { url } from "../../utils/constants";
 import useCart from "../hooks/useCart";
-import { toast } from "react-hot-toast";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from "react-router-dom";
 export default function Cart() {
-  const { setCart, cart, user } = useAuth();
-  const { removeItem, clearCart } = useCart();
-  const [loading, setLoading] = useState(false);
-  const [orderInfo, setOrderInfo] = useState({
-    clientName: user.displayName,
-    email: user.email,
-    phone: "",
-    address: "",
-  });
+  const { setCart, cart } = useAuth();
+  const { removeItem } = useCart();
+
   const history = useHistory();
 
   let total = 0;
   cart.forEach((item) => {
     total += item.price * item.quantity;
   });
-
-  const handleOrderSubmit = (e) => {
-    e.preventDefault();
-
-    const date = new Date();
-    const orderDate =
-      date.getDate() + "-" + date.getMonth() + "-" + date.getFullYear();
-
-    const order = {
-      ...orderInfo,
-      orderDate,
-      total,
-      orderProducts: cart,
-    };
-
-    fetch(`${url}/orders`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(order),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log({ data });
-        if (data.insertedId) {
-          setCart([]);
-          clearCart();
-          toast.success("Order placed successfully!");
-          history.push("/dashboard/myOrders");
-        }
-      });
-  };
-
-  const handleOnblur = (e) => {
-    const field = e.target.name;
-    const value = e.target.value;
-    const newInfo = { ...orderInfo };
-    newInfo[field] = value;
-    // console.log(newInfo)
-    setOrderInfo(newInfo);
-  };
 
   const handleRemoveFromCart = (id) => {
     const filtred = cart.filter((item) => item._id !== id);
@@ -160,7 +108,9 @@ export default function Cart() {
                                     >
                                       ${myLipstick.price} *{" "}
                                       {myLipstick.quantity} = $
-                                      {myLipstick.price * myLipstick.quantity}
+                                      {Number(
+                                        myLipstick.price * myLipstick.quantity
+                                      ).toFixed(2)}
                                     </Typography>
                                   </Box>
                                 </Box>
@@ -178,65 +128,15 @@ export default function Cart() {
                   <CardHeader title="Confirm Order" />
                   <CardContent>
                     <Typography variant="h6" style={{ fontWeight: "bold" }}>
-                      Total: ${total}
+                      Total: ${Number(total).toFixed(2)}
                     </Typography>
-                    <Divider />
-                    <form onSubmit={handleOrderSubmit}>
-                      <h4>Contact Information</h4>
-                      <TextField
-                        required
-                        sx={{ width: "90%", m: 1 }}
-                        id="outlined-basic"
-                        name="email"
-                        defaultValue={user.email}
-                        onBlur={handleOnblur}
-                        type="email"
-                        label="your email"
-                        variant="outlined"
-                        fullWidth
-                      />
-                      <TextField
-                        required
-                        sx={{ width: "90%", m: 1 }}
-                        id="outlined-basic"
-                        type="text"
-                        onBlur={handleOnblur}
-                        name="phone"
-                        label="phone number"
-                        variant="outlined"
-                        fullWidth
-                      />
-                      <h4>Shipping Address</h4>
-                      <TextField
-                        required
-                        sx={{ width: "90%", m: 1 }}
-                        id="outlined-basic"
-                        type="text"
-                        defaultValue={user.displayName}
-                        onBlur={handleOnblur}
-                        name="clientName"
-                        label="your name"
-                        variant="outlined"
-                        fullWidth
-                      />
-                      <TextField
-                        required
-                        sx={{ width: "90%", m: 1 }}
-                        id="outlined-basic"
-                        type="text"
-                        onBlur={handleOnblur}
-                        name="address"
-                        label="address"
-                        variant="outlined"
-                        fullWidth
-                      />
-                      <button
-                        type="submit"
-                        style={{ margin: "5px", width: "100%" }}
-                      >
-                        <h3>Order Now</h3>
-                      </button>
-                    </form>
+                    <hr />
+                    <button
+                      onClick={() => history.push("/payment")}
+                      style={{ margin: "5px", width: "100%" }}
+                    >
+                      <h3>Order Now</h3>
+                    </button>
                   </CardContent>
                 </Card>
               </Grid>

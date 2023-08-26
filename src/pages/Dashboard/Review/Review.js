@@ -4,12 +4,14 @@ import { Container, Rating } from "@mui/material";
 import { Box } from "@mui/system";
 import useAuth from "../../hooks/useAuth";
 import { url } from "../../../utils/constants";
+import { useHistory } from "react-router-dom";
 
 const Review = () => {
   // const [value, setValue] = React.useState(0);
   const { user } = useAuth();
   const initialInfo = { email: user.email, name: user.displayName };
   const [review, setReview] = useState(initialInfo);
+  const history = useHistory();
 
   const handleOnBlur = (e) => {
     const field = e.target.name;
@@ -20,6 +22,8 @@ const Review = () => {
     console.log(newReviewData);
   };
   const handleSubmitReview = (e) => {
+    e.preventDefault();
+
     // send to server
     fetch(`${url}/review`, {
       method: "POST",
@@ -35,9 +39,8 @@ const Review = () => {
           alert("thanks for your review");
         }
       });
-    e.preventDefault();
     e.target.reset();
-    e.preventDefault();
+    history.push("/#reviews");
   };
 
   return (
@@ -72,6 +75,7 @@ const Review = () => {
                 paddingLeft: "20px",
                 paddingTop: "5px",
                 paddingBottom: "5px",
+                cursor: "pointer",
               }}
             >
               Review

@@ -11,6 +11,7 @@ import Register from "./pages/Login/Register/Register";
 import NotFound from "./pages/NotFound/NotFound";
 import Cart from "./pages/Cart/Cart";
 import { Toaster } from "react-hot-toast";
+import Payment from "./pages/Payment/Payment";
 
 function App() {
   return (
@@ -33,8 +34,11 @@ function App() {
             <PrivateRoute path="/dashboard">
               <Dashboard></Dashboard>
             </PrivateRoute>
-            <PrivateRoute path="/cart">
+            <Route path="/cart">
               <Cart></Cart>
+            </Route>
+            <PrivateRoute path="/payment">
+              <Payment></Payment>
             </PrivateRoute>
             <Route path="/login">
               <Login></Login>

@@ -9,12 +9,12 @@ export default function useCart() {
     }
   };
 
-  const setCartItem = (newItem) => {
+  const setCartItem = (newItem, quantity = 1) => {
     const items = getCartItem();
     const newItems = [];
     items.forEach((element) => {
       if (element._id === newItem._id) {
-        newItems.push({ ...element, quantity: element.quantity + 1 });
+        newItems.push({ ...element, quantity: element.quantity + quantity });
       } else {
         newItems.push(element);
       }
@@ -25,7 +25,7 @@ export default function useCart() {
     );
 
     if (!checkNewItem) {
-      newItems.push({ ...newItem, quantity: 1 });
+      newItems.push({ ...newItem, quantity: quantity });
     }
     localStorage.setItem("cart", JSON.stringify(newItems));
   };
