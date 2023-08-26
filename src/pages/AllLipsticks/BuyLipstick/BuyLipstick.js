@@ -22,7 +22,7 @@ import { toast } from "react-hot-toast";
 const BuyLipstick = () => {
   const [buyLipstick, setBuyLipstick] = useState({});
   const { lipstickId } = useParams();
-  const { setCart } = useAuth();
+  const { setCart, admin } = useAuth();
   const { setCartItem } = useCart();
   const [quantity, setQuantity] = useState(1);
 
@@ -68,7 +68,6 @@ const BuyLipstick = () => {
   };
 
   useEffect(() => getSingleLipstick(), []);
-
   return (
     <>
       <div style={{ minHeight: "95vh" }}>
@@ -86,59 +85,61 @@ const BuyLipstick = () => {
                   <h4>-For {buyLipstick.skinFor}</h4>
                   <h3>${buyLipstick?.price} USD </h3>
                 </div>
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "50px",
-                  }}
-                >
+                {!admin && (
                   <Box
                     sx={{
                       display: "flex",
                       alignItems: "center",
+                      gap: "50px",
                     }}
                   >
-                    <AddIcon
-                      onClick={() => {
-                        setQuantity(quantity + 1);
-                      }}
+                    <Box
                       sx={{
-                        color: "white",
-                        backgroundColor: "#800000",
-                        borderRadius: "5px 0 0 5px",
-                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
                       }}
-                    />
-                    <Typography
-                      variant="body"
-                      sx={{ border: "1px solid #800000", padding: "0 5px" }}
                     >
-                      {quantity}
-                    </Typography>
-                    <RemoveIcon
-                      onClick={() => {
-                        if (quantity > 1) {
-                          setQuantity(quantity - 1);
-                        } else {
-                          toast.error("You cannot remove more quantity!");
-                        }
-                      }}
-                      sx={{
-                        color: "white",
-                        backgroundColor: "#800000",
-                        borderRadius: "0px 5px 5px 0px",
-                        cursor: "pointer",
-                      }}
-                    />
+                      <AddIcon
+                        onClick={() => {
+                          setQuantity(quantity + 1);
+                        }}
+                        sx={{
+                          color: "white",
+                          backgroundColor: "#800000",
+                          borderRadius: "5px 0 0 5px",
+                          cursor: "pointer",
+                        }}
+                      />
+                      <Typography
+                        variant="body"
+                        sx={{ border: "1px solid #800000", padding: "0 5px" }}
+                      >
+                        {quantity}
+                      </Typography>
+                      <RemoveIcon
+                        onClick={() => {
+                          if (quantity > 1) {
+                            setQuantity(quantity - 1);
+                          } else {
+                            toast.error("You cannot remove more quantity!");
+                          }
+                        }}
+                        sx={{
+                          color: "white",
+                          backgroundColor: "#800000",
+                          borderRadius: "0px 5px 5px 0px",
+                          cursor: "pointer",
+                        }}
+                      />
+                    </Box>
+                    <Button
+                      onClick={addToCart}
+                      sx={{ backgroundColor: "lightpink", color: "maroon" }}
+                    >
+                      Add to bag
+                    </Button>
                   </Box>
-                  <Button
-                    onClick={addToCart}
-                    sx={{ backgroundColor: "lightpink", color: "maroon" }}
-                  >
-                    Add to bag
-                  </Button>
-                </Box>
+                )}
               </Grid>
               <Grid item xs={12} md={6}>
                 <Paper elevation={0}>

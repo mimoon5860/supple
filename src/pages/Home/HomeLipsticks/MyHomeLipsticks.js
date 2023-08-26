@@ -12,7 +12,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 const MyHomeLipsticks = ({ myLipstick }) => {
   const { img, name, _id, price, brand } = myLipstick;
   const [quantity, setQuantity] = useState(1);
-  const { setCart } = useAuth();
+  const { setCart, admin } = useAuth();
   const { setCartItem } = useCart();
 
   const addToCart = () => {
@@ -76,59 +76,63 @@ const MyHomeLipsticks = ({ myLipstick }) => {
               <Typography variant="h5" sx={{ ml: 1, color: "warning.main" }}>
                 ${price}
               </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                <AddIcon
-                  onClick={() => {
-                    setQuantity(quantity + 1);
-                  }}
-                  sx={{
-                    color: "white",
-                    backgroundColor: "#800000",
-                    borderRadius: "5px 0 0 5px",
-                    cursor: "pointer",
-                  }}
-                />
-                <Typography
-                  variant="body"
-                  sx={{ border: "1px solid #800000", padding: "0 5px" }}
-                >
-                  {quantity}
-                </Typography>
-                <RemoveIcon
-                  onClick={() => {
-                    if (quantity > 1) {
-                      setQuantity(quantity - 1);
-                    } else {
-                      toast.error("You cannot remove more quantity!");
-                    }
-                  }}
-                  sx={{
-                    color: "white",
-                    backgroundColor: "#800000",
-                    borderRadius: "0px 5px 5px 0px",
-                    cursor: "pointer",
-                  }}
-                />
-              </Box>
+              {!admin && (
+                <>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                  >
+                    <AddIcon
+                      onClick={() => {
+                        setQuantity(quantity + 1);
+                      }}
+                      sx={{
+                        color: "white",
+                        backgroundColor: "#800000",
+                        borderRadius: "5px 0 0 5px",
+                        cursor: "pointer",
+                      }}
+                    />
+                    <Typography
+                      variant="body"
+                      sx={{ border: "1px solid #800000", padding: "0 5px" }}
+                    >
+                      {quantity}
+                    </Typography>
+                    <RemoveIcon
+                      onClick={() => {
+                        if (quantity > 1) {
+                          setQuantity(quantity - 1);
+                        } else {
+                          toast.error("You cannot remove more quantity!");
+                        }
+                      }}
+                      sx={{
+                        color: "white",
+                        backgroundColor: "#800000",
+                        borderRadius: "0px 5px 5px 0px",
+                        cursor: "pointer",
+                      }}
+                    />
+                  </Box>
 
-              <Box onClick={addToCart}>
-                <ShoppingBasketOutlinedIcon
-                  sx={{
-                    backgroundColor: "maroon",
-                    color: "white",
-                    border: 1,
-                    p: 1,
-                    borderRadius: "50%",
-                    mr: 1,
-                    cursor: "pointer",
-                  }}
-                />
-              </Box>
+                  <Box onClick={addToCart}>
+                    <ShoppingBasketOutlinedIcon
+                      sx={{
+                        backgroundColor: "maroon",
+                        color: "white",
+                        border: 1,
+                        p: 1,
+                        borderRadius: "50%",
+                        mr: 1,
+                        cursor: "pointer",
+                      }}
+                    />
+                  </Box>
+                </>
+              )}
             </Box>
           </Box>
         </Box>

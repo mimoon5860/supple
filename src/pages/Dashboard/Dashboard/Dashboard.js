@@ -202,14 +202,16 @@ function Dashboard(props) {
               <h3>{user.displayName}</h3>
             </div>
           </Link>
-          <Badge
-            badgeContent={cart.length}
-            sx={{ marginRight: "5px", cursor: "pointer" }}
-            color="primary"
-            onClick={() => history.push("/cart")}
-          >
-            <AddShoppingCartIcon color="white" />
-          </Badge>
+          {!admin && (
+            <Badge
+              badgeContent={cart.length}
+              sx={{ marginRight: "5px", cursor: "pointer" }}
+              color="primary"
+              onClick={() => history.push("/cart")}
+            >
+              <AddShoppingCartIcon color="white" />
+            </Badge>
+          )}
         </Toolbar>
       </AppBar>
       <Box

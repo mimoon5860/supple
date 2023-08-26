@@ -8,7 +8,7 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
 const Lipsticks = ({ lipstick }) => {
-  const { setCart } = useAuth();
+  const { setCart, admin } = useAuth();
   const { setCartItem } = useCart();
   const [quantity, setQuantity] = useState(1);
   const { _id, img, name, price } = lipstick;
@@ -74,51 +74,55 @@ const Lipsticks = ({ lipstick }) => {
             </Typography>
           </Box>
 
-          <Box>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <AddIcon
-                onClick={() => {
-                  setQuantity(quantity + 1);
-                }}
-                sx={{
-                  color: "white",
-                  backgroundColor: "#800000",
-                  borderRadius: "5px 0 0 5px",
-                  cursor: "pointer",
-                }}
-              />
-              <Typography
-                variant="body"
-                sx={{ border: "1px solid #800000", padding: "0 5px" }}
-              >
-                {quantity}
-              </Typography>
-              <RemoveIcon
-                onClick={() => {
-                  if (quantity > 1) {
-                    setQuantity(quantity - 1);
-                  } else {
-                    toast.error("You cannot remove more quantity!");
-                  }
-                }}
-                sx={{
-                  color: "white",
-                  backgroundColor: "#800000",
-                  borderRadius: "0px 5px 5px 0px",
-                  cursor: "pointer",
-                }}
-              />
-            </Box>
-          </Box>
+          {!admin && (
+            <>
+              <Box>
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                  <AddIcon
+                    onClick={() => {
+                      setQuantity(quantity + 1);
+                    }}
+                    sx={{
+                      color: "white",
+                      backgroundColor: "#800000",
+                      borderRadius: "5px 0 0 5px",
+                      cursor: "pointer",
+                    }}
+                  />
+                  <Typography
+                    variant="body"
+                    sx={{ border: "1px solid #800000", padding: "0 5px" }}
+                  >
+                    {quantity}
+                  </Typography>
+                  <RemoveIcon
+                    onClick={() => {
+                      if (quantity > 1) {
+                        setQuantity(quantity - 1);
+                      } else {
+                        toast.error("You cannot remove more quantity!");
+                      }
+                    }}
+                    sx={{
+                      color: "white",
+                      backgroundColor: "#800000",
+                      borderRadius: "0px 5px 5px 0px",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Box>
+              </Box>
 
-          <Box>
-            <Button
-              onClick={addToCart}
-              sx={{ backgroundColor: "lightpink", color: "maroon" }}
-            >
-              Add to bag
-            </Button>
-          </Box>
+              <Box>
+                <Button
+                  onClick={addToCart}
+                  sx={{ backgroundColor: "lightpink", color: "maroon" }}
+                >
+                  Add to bag
+                </Button>
+              </Box>
+            </>
+          )}
         </Box>
       </Paper>
     </Grid>

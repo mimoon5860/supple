@@ -24,7 +24,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useHistory } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 const Navigation = () => {
-  const { logOut, user, cart } = useAuth();
+  const { logOut, user, cart, admin } = useAuth();
   const [searchText, setSearchText] = React.useState("");
   const history = useHistory();
 
@@ -206,14 +206,16 @@ const Navigation = () => {
               sx={{ display: "flex", alignItems: "center" }}
               className={navItemContainer}
             >
-              <Badge
-                badgeContent={cart.length}
-                sx={{ marginRight: "5px", cursor: "pointer" }}
-                color="primary"
-                onClick={() => history.push("/cart")}
-              >
-                <AddShoppingCartIcon color="white" />
-              </Badge>
+              {!admin && (
+                <Badge
+                  badgeContent={cart.length}
+                  sx={{ marginRight: "5px", cursor: "pointer" }}
+                  color="primary"
+                  onClick={() => history.push("/cart")}
+                >
+                  <AddShoppingCartIcon color="white" />
+                </Badge>
+              )}
               <Link className={navItem} to="/">
                 <Button color="inherit">Home</Button>
               </Link>
