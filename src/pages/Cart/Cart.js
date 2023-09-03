@@ -6,7 +6,6 @@ import {
   Container,
   Divider,
   Grid,
-  Paper,
   Typography,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -47,7 +46,7 @@ export default function Cart() {
                       {cart.map((myLipstick) => {
                         return (
                           <Grid key={myLipstick._id} item xs={12} md={6}>
-                            <Paper elevation={0}>
+                            <Box elevation={0}>
                               <Box sx={{ display: "flex" }}>
                                 <Box
                                   style={{
@@ -115,7 +114,7 @@ export default function Cart() {
                                   </Box>
                                 </Box>
                               </Box>
-                            </Paper>
+                            </Box>
                           </Grid>
                         );
                       })}

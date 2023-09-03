@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Paper } from "@material-ui/core";
+import { Button, Container, Grid, Box } from "@material-ui/core";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -10,7 +10,7 @@ const DashboardHome = () => {
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           {admin ? (
-            <Paper elevation={0}>
+            <Box elevation={0}>
               <h3>Hello Admin!</h3>
               <p>
                 Admin is the role with the highest level of access to your
@@ -24,9 +24,9 @@ const DashboardHome = () => {
               <li>You can manage all product</li>
               <li>You can manage the orders</li>
               <li>You can make person as admin</li>
-            </Paper>
+            </Box>
           ) : (
-            <Paper elevation={0}>
+            <Box elevation={0}>
               <h3>Hello {user.displayName}!</h3>
               <p>
                 We have that all products those you're finding for a couple of
@@ -39,7 +39,7 @@ const DashboardHome = () => {
                 {" "}
                 <Button>See your orders</Button>{" "}
               </NavLink>
-            </Paper>
+            </Box>
           )}
         </Grid>
       </Grid>

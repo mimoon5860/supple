@@ -4,7 +4,6 @@ import {
   Container,
   Grid,
   LinearProgress,
-  Paper,
   Typography,
 } from "@mui/material";
 import axios from "axios";
@@ -158,7 +157,7 @@ const BuyLipstick = () => {
                 )}
               </Grid>
               <Grid item xs={12} md={6}>
-                <Paper elevation={0}>
+                <Box elevation={0}>
                   <h2 style={{ margin: 0 }}>Details</h2>
                   <p style={{ marginLeft: "40px" }}>
                     {buyLipstick?.description}
@@ -169,7 +168,7 @@ const BuyLipstick = () => {
                   </p>
                   <h2 style={{ margin: 0 }}>How to use?</h2>
                   <p style={{ marginLeft: "40px" }}>{buyLipstick?.usage}</p>
-                </Paper>
+                </Box>
               </Grid>
             </Grid>
           </Container>

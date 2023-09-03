@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -41,7 +41,7 @@ const Lipsticks = ({ lipstick }) => {
 
   return (
     <Grid item xs={12} sm={12} md={3} sx={{ p: 0 }}>
-      <Paper
+      <Box
         elevation={0}
         sx={{ backgroundColor: "#ECE2DA", width: "100%", height: "100%" }}
       >
@@ -143,7 +143,7 @@ const Lipsticks = ({ lipstick }) => {
             </>
           )}
         </Box>
-      </Paper>
+      </Box>
     </Grid>
   );
 };

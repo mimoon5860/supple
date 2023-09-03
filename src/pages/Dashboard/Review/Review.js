@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextareaAutosize } from "@mui/base";
+import { TextareaAutosize } from "@mui/material";
 import { Container, Rating } from "@mui/material";
 import { Box } from "@mui/system";
 import useAuth from "../../hooks/useAuth";

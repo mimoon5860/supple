@@ -149,7 +149,7 @@ const AddAProduct = () => {
                 borderRadius: "5px",
               }}
               type="number"
-              {...register("quantity")}
+              {...register("quantity", { valueAsNumber: true })}
               placeholder="Quantity"
             />
           </Grid>

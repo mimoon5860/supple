@@ -1,5 +1,4 @@
-import { Divider, Grid, Paper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Divider, Grid, Box, Typography } from "@mui/material";
 import React, { useState } from "react";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
 import { Link } from "react-router-dom";
@@ -50,7 +49,7 @@ const MyHomeLipsticks = ({ myLipstick }) => {
 
   return (
     <Grid item xs={12} md={6}>
-      <Paper elevation={0}>
+      <Box elevation={0}>
         <Box sx={{ display: "flex" }}>
           <Box style={{ width: "40%", overflow: "hidden" }}>
             <img
@@ -72,7 +71,10 @@ const MyHomeLipsticks = ({ myLipstick }) => {
             </Link>
 
             <Typography sx={{ p: 1, ml: 1 }}>
-              {brand} {availableQuantity && availableQuantity + " items left"}
+              {brand}{" "}
+              <span style={{ color: "gray" }}>
+                {availableQuantity && "(" + availableQuantity + " items left)"}
+              </span>
             </Typography>
             <Divider />
             <Box
@@ -153,7 +155,7 @@ const MyHomeLipsticks = ({ myLipstick }) => {
             </Box>
           </Box>
         </Box>
-      </Paper>
+      </Box>
     </Grid>
   );
 };

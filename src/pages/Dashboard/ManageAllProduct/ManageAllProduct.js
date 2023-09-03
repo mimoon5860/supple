@@ -1,13 +1,14 @@
-import { Button, Grid, LinearProgress, Paper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+import { Button, Grid, LinearProgress, Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import useLipsticks from "../../hooks/useLipsticks";
 import { url } from "../../../utils/constants";
+import UpdateModal from "./UpdateModal";
 
 const ManageAllProduct = () => {
   const [lipsticks, isLoading] = useLipsticks();
   const [remainingProducts, setRemainingProducts] = useState([]);
-
+  const [open, setOpen] = useState(false);
+  const [modalData, setModalData] = useState({});
   useEffect(() => {
     setRemainingProducts(lipsticks);
   }, [lipsticks]);
@@ -34,7 +35,23 @@ const ManageAllProduct = () => {
       return alert("sorry! product should be more than 12");
     }
   };
-  console.log({ lipsticks });
+
+  const handleUpdate = (data) => {
+    setModalData(data);
+    setOpen(true);
+  };
+
+  const updateDone = (data) => {
+    const newData = remainingProducts.map((item) => {
+      if (item._id === data._id) {
+        return data;
+      } else {
+        return item;
+      }
+    });
+    setRemainingProducts(newData);
+  };
+
   return (
     <div style={{ marginBottom: "50px" }}>
       {isLoading && <LinearProgress color="secondary" />}
@@ -48,20 +65,27 @@ const ManageAllProduct = () => {
               key={products._id}
               products={products}
               deleteAproduct={deleteAproduct}
+              handleUpdate={handleUpdate}
             ></Products>
           ))}
         </Grid>
       </Box>
+      <UpdateModal
+        data={modalData}
+        open={open}
+        setOpen={setOpen}
+        updateDone={updateDone}
+      />
     </div>
   );
 };
 
-function Products({ products, deleteAproduct }) {
+function Products({ products, deleteAproduct, handleUpdate }) {
   const { _id, img, name, price, quantity } = products;
-  // console.log(products)
+  console.log({ products });
   return (
     <Grid item xs={12} sm={12} md={6} sx={{ p: 0 }}>
-      <Paper
+      <Box
         elevation={0}
         sx={{
           backgroundColor: "#540D15",
@@ -92,7 +116,7 @@ function Products({ products, deleteAproduct }) {
           </Typography>
           <Box sx={{ display: "flex", gap: "10px" }}>
             <Button
-              onClick={() => deleteAproduct(_id)}
+              onClick={() => handleUpdate(products)}
               sx={{
                 backgroundColor: "white",
                 color: "goldenrod",
@@ -113,7 +137,7 @@ function Products({ products, deleteAproduct }) {
             </Button>
           </Box>
         </Box>
-      </Paper>
+      </Box>
     </Grid>
   );
 }
