@@ -138,6 +138,20 @@ const AddAProduct = () => {
               {...register("description")}
               placeholder="description"
             />
+            <input
+              required
+              style={{
+                width: "100%",
+                height: "80px",
+                padding: "15px 7px",
+                marginBottom: "10px",
+                border: "2px solid maroon",
+                borderRadius: "5px",
+              }}
+              type="number"
+              {...register("quantity")}
+              placeholder="Quantity"
+            />
           </Grid>
         </Grid>
         <input

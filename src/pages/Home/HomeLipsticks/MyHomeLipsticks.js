@@ -10,7 +10,14 @@ import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 
 const MyHomeLipsticks = ({ myLipstick }) => {
-  const { img, name, _id, price, brand } = myLipstick;
+  const {
+    img,
+    name,
+    _id,
+    price,
+    brand,
+    quantity: availableQuantity,
+  } = myLipstick;
   const [quantity, setQuantity] = useState(1);
   const { setCart, admin } = useAuth();
   const { setCartItem } = useCart();
@@ -64,7 +71,9 @@ const MyHomeLipsticks = ({ myLipstick }) => {
               </Typography>
             </Link>
 
-            <Typography sx={{ p: 1, ml: 1 }}>{brand}</Typography>
+            <Typography sx={{ p: 1, ml: 1 }}>
+              {brand} {availableQuantity && availableQuantity + " items left"}
+            </Typography>
             <Divider />
             <Box
               sx={{
@@ -86,7 +95,11 @@ const MyHomeLipsticks = ({ myLipstick }) => {
                   >
                     <AddIcon
                       onClick={() => {
-                        setQuantity(quantity + 1);
+                        if (quantity < availableQuantity) {
+                          setQuantity(quantity + 1);
+                        } else {
+                          toast.error("You already added maximum quantity!");
+                        }
                       }}
                       sx={{
                         color: "white",
@@ -118,19 +131,23 @@ const MyHomeLipsticks = ({ myLipstick }) => {
                     />
                   </Box>
 
-                  <Box onClick={addToCart}>
-                    <ShoppingBasketOutlinedIcon
-                      sx={{
-                        backgroundColor: "maroon",
-                        color: "white",
-                        border: 1,
-                        p: 1,
-                        borderRadius: "50%",
-                        mr: 1,
-                        cursor: "pointer",
-                      }}
-                    />
-                  </Box>
+                  {availableQuantity ? (
+                    <Box onClick={addToCart}>
+                      <ShoppingBasketOutlinedIcon
+                        sx={{
+                          backgroundColor: "maroon",
+                          color: "white",
+                          border: 1,
+                          p: 1,
+                          borderRadius: "50%",
+                          mr: 1,
+                          cursor: "pointer",
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    <Typography>Out of Stock</Typography>
+                  )}
                 </>
               )}
             </Box>

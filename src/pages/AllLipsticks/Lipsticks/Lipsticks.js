@@ -11,7 +11,7 @@ const Lipsticks = ({ lipstick }) => {
   const { setCart, admin } = useAuth();
   const { setCartItem } = useCart();
   const [quantity, setQuantity] = useState(1);
-  const { _id, img, name, price } = lipstick;
+  const { _id, img, name, price, quantity: availableQuantity } = lipstick;
 
   const addToCart = () => {
     setCart((curr) => {
@@ -68,6 +68,10 @@ const Lipsticks = ({ lipstick }) => {
             </Link>
           </Box>
 
+          {availableQuantity
+            ? availableQuantity + " items left"
+            : "Out of stock"}
+
           <Box>
             <Typography variant="h5" sx={{ color: "warning.main" }}>
               ${price}
@@ -80,7 +84,11 @@ const Lipsticks = ({ lipstick }) => {
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <AddIcon
                     onClick={() => {
-                      setQuantity(quantity + 1);
+                      if (quantity < availableQuantity) {
+                        setQuantity(quantity + 1);
+                      } else {
+                        toast.error("You already added maximum quantity!");
+                      }
                     }}
                     sx={{
                       color: "white",
@@ -113,14 +121,25 @@ const Lipsticks = ({ lipstick }) => {
                 </Box>
               </Box>
 
-              <Box>
-                <Button
-                  onClick={addToCart}
-                  sx={{ backgroundColor: "lightpink", color: "maroon" }}
-                >
-                  Add to bag
-                </Button>
-              </Box>
+              {availableQuantity ? (
+                <Box>
+                  <Button
+                    onClick={addToCart}
+                    sx={{ backgroundColor: "lightpink", color: "maroon" }}
+                  >
+                    Add to bag
+                  </Button>
+                </Box>
+              ) : (
+                <Box>
+                  <Button
+                    disabled
+                    sx={{ backgroundColor: "lightpink", color: "maroon" }}
+                  >
+                    Add to bag
+                  </Button>
+                </Box>
+              )}
             </>
           )}
         </Box>

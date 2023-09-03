@@ -81,8 +81,15 @@ const BuyLipstick = () => {
                 <img width="300px" height="300" src={buyLipstick?.img} alt="" />
                 <div style={{ color: "maroon", textAlign: "start" }}>
                   <h2>{buyLipstick?.name}</h2>
-                  <h4>-By {buyLipstick?.brand}</h4>
-                  <h4>-For {buyLipstick.skinFor}</h4>
+                  <h4>
+                    -By {buyLipstick?.brand}{" "}
+                    <span style={{ fontWeight: "normal", fontFamily: "arial" }}>
+                      {+buyLipstick?.quantity
+                        ? "(" + buyLipstick.quantity + " items left)"
+                        : ""}
+                    </span>
+                  </h4>
+                  <h4>-For {buyLipstick?.skinFor}</h4>
                   <h3>${buyLipstick?.price} USD </h3>
                 </div>
                 {!admin && (
@@ -132,12 +139,21 @@ const BuyLipstick = () => {
                         }}
                       />
                     </Box>
-                    <Button
-                      onClick={addToCart}
-                      sx={{ backgroundColor: "lightpink", color: "maroon" }}
-                    >
-                      Add to bag
-                    </Button>
+                    {buyLipstick?.quantity ? (
+                      <Button
+                        onClick={addToCart}
+                        sx={{ backgroundColor: "lightpink", color: "maroon" }}
+                      >
+                        Add to bag
+                      </Button>
+                    ) : (
+                      <Button
+                        disabled
+                        sx={{ backgroundColor: "lightpink", color: "maroon" }}
+                      >
+                        Out of Stock
+                      </Button>
+                    )}
                   </Box>
                 )}
               </Grid>

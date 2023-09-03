@@ -34,6 +34,7 @@ const ManageAllProduct = () => {
       return alert("sorry! product should be more than 12");
     }
   };
+  console.log({ lipsticks });
   return (
     <div style={{ marginBottom: "50px" }}>
       {isLoading && <LinearProgress color="secondary" />}
@@ -56,7 +57,7 @@ const ManageAllProduct = () => {
 };
 
 function Products({ products, deleteAproduct }) {
-  const { _id, img, name, price } = products;
+  const { _id, img, name, price, quantity } = products;
   // console.log(products)
   return (
     <Grid item xs={12} sm={12} md={6} sx={{ p: 0 }}>
@@ -86,16 +87,31 @@ function Products({ products, deleteAproduct }) {
           <Typography variant="h5" sx={{ color: "warning.main" }}>
             ${price}
           </Typography>
-          <Button
-            onClick={() => deleteAproduct(_id)}
-            sx={{
-              backgroundColor: "white",
-              color: "goldenrod",
-              fontWeight: "bold",
-            }}
-          >
-            Delete
-          </Button>
+          <Typography variant="h5" sx={{ color: "warning.main" }}>
+            Quantity: {quantity || 0}
+          </Typography>
+          <Box sx={{ display: "flex", gap: "10px" }}>
+            <Button
+              onClick={() => deleteAproduct(_id)}
+              sx={{
+                backgroundColor: "white",
+                color: "goldenrod",
+                fontWeight: "bold",
+              }}
+            >
+              Update
+            </Button>
+            <Button
+              onClick={() => deleteAproduct(_id)}
+              sx={{
+                backgroundColor: "white",
+                color: "goldenrod",
+                fontWeight: "bold",
+              }}
+            >
+              Delete
+            </Button>
+          </Box>
         </Box>
       </Paper>
     </Grid>

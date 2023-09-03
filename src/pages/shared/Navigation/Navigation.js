@@ -195,7 +195,7 @@ const Navigation = () => {
                   }}
                   type="submit"
                   variant="contained"
-                  // onClick={handleSearch}
+                  onClick={handleSearch}
                 >
                   Search
                 </Button>

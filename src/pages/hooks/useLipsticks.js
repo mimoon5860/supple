@@ -23,7 +23,7 @@ const useLipsticks = (search) => {
       });
   };
 
-  useEffect(() => getLipsticks(), []);
+  useEffect(() => getLipsticks(), [search]);
   return [lipsticks, isLoading];
 };
 
