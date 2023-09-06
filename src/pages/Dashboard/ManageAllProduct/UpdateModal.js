@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
-import { Box, Fade, Grid, Modal, Typography } from "@mui/material";
+import { Box, Fade, Grid, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { url } from "../../../utils/constants";

@@ -43,8 +43,9 @@ const Payment = () => {
     const order = {
       ...orderInfo,
       orderDate,
-      total,
+      total: Number(total).toFixed(2),
       orderProducts: cart,
+      status: "Pending",
     };
 
     fetch(`${url}/orders`, {

@@ -112,7 +112,7 @@ function Products({ products, deleteAproduct, handleUpdate }) {
             ${price}
           </Typography>
           <Typography variant="h5" sx={{ color: "warning.main" }}>
-            Quantity: {quantity || 0}
+            Available stock: {quantity || 0}
           </Typography>
           <Box sx={{ display: "flex", gap: "10px" }}>
             <Button
